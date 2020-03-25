@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Resources:
+GuarddutytoSNS:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: CloudWatch Event Rule to trigger Lambda for High Severity GuardDuty
+        Findings
+      State: ENABLED
+      EventPattern:
+        source:
+        - aws.guardduty
+        detail-type:
+        - GuardDuty Finding
+        detail:
+          severity:
+          - 7
+          - 8
+          - 9
+          - 10
